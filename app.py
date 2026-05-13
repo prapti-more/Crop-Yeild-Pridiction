@@ -549,7 +549,6 @@ def add_scheme():
 # =========================
 # ENCYCLOPEDIA
 # =========================
-
 @app.route('/encyclopedia')
 def encyclopedia():
 
@@ -578,6 +577,8 @@ def encyclopedia():
         'encyclopedia.html',
         crops=crops
     )
+
+
 
 # =========================
 # LOGOUT

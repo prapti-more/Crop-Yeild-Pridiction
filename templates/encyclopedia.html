@@ -78,7 +78,7 @@
 
         .card{
 
-            width:300px;
+            width:320px;
 
             background:rgba(0,128,0,0.75);
 
@@ -102,16 +102,60 @@
 
             color:#FFD700;
 
-            font-size:26px;
+            font-size:28px;
 
             margin-bottom:15px;
+
+            text-align:center;
         }
 
         .card p{
 
-            line-height:1.7;
+            line-height:1.8;
 
             font-size:16px;
+
+            text-align:justify;
+        }
+
+        .button-box{
+
+            text-align:center;
+
+            margin-top:40px;
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            background:#4CAF50;
+
+            color:white;
+
+            padding:14px 28px;
+
+            border-radius:10px;
+
+            font-size:18px;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            background:#1b5e20;
+        }
+
+        footer{
+
+            text-align:center;
+
+            margin-top:50px;
+
+            color:#ddd;
+
+            font-size:15px;
         }
 
         @media(max-width:768px){
@@ -123,7 +167,7 @@
 
             .card{
 
-                width:90%;
+                width:95%;
             }
         }
 
@@ -137,23 +181,23 @@
 
     <div class="container">
 
-        <h2>Explore Crop Encyclopedia 🌾</h2>
+        <h2>🌾 Explore Crop Encyclopedia 🌾</h2>
 
         <div class="card-container">
 
-            {% for crop in crops %}
+            {% for crop, description in crops.items() %}
 
                 <div class="card">
 
                     <h3>
 
-                        {{ crop.name }}
+                        {{ crop }}
 
                     </h3>
 
                     <p>
 
-                        {{ crop.description }}
+                        {{ description }}
 
                     </p>
 
@@ -162,6 +206,27 @@
             {% endfor %}
 
         </div>
+
+        <div class="button-box">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="btn">
+
+               🏠 Back to Dashboard
+
+            </a>
+
+        </div>
+
+        <footer>
+
+            <p>
+
+                © 2025 Crop Yield Prediction System
+
+            </p>
+
+        </footer>
 
     </div>
 

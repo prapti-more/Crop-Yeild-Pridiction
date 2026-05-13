@@ -181,6 +181,16 @@ def predict():
     error = None
     custom_message = None
 
+    # NEW VARIABLES
+    N = None
+    P = None
+    K = None
+
+    rainfall = None
+    temperature = None
+    humidity = None
+    ph = None
+
     if request.method == 'POST':
 
         try:
@@ -202,10 +212,16 @@ def predict():
 
                 row = state_data.iloc[0]
 
+                # EXISTING VALUES
                 rainfall = row['RAINFALL']
                 temperature = row['TEMPERATURE']
                 humidity = row['HUMIDITY']
                 ph = row['ph']
+
+                # NEW NPK VALUES
+                N = row['N_SOIL']
+                P = row['P_SOIL']
+                K = row['K_SOIL']
 
                 # predict
                 pred = model.predict([[
@@ -221,11 +237,17 @@ def predict():
 
                 custom_message = f"""
                 State: {state}<br>
-                Current Crop: {current_crop}<br>
+                Current Crop: {current_crop}<br><br>
+
+                Nitrogen (N): {N}<br>
+                Phosphorus (P): {P}<br>
+                Potassium (K): {K}<br><br>
+
                 Rainfall: {rainfall}<br>
                 Temperature: {temperature}<br>
                 Humidity: {humidity}<br>
                 Soil pH: {ph}<br>
+
                 Land Area: {land_area} acres
                 """
 
@@ -263,9 +285,18 @@ def predict():
         prediction=prediction,
         suggested_crop=suggested_crop,
         custom_message=custom_message,
-        error=error
-    )
+        error=error,
 
+        # SEND TO HTML
+        N=N,
+        P=P,
+        K=K,
+
+        rainfall=rainfall,
+        temperature=temperature,
+        humidity=humidity,
+        ph=ph
+    )
 # =========================
 # HISTORY
 # =========================

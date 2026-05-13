@@ -104,7 +104,7 @@
 
             margin-top:20px;
 
-            padding:15px;
+            padding:20px;
 
             border-radius:10px;
 
@@ -112,9 +112,9 @@
 
             color:#1b5e20;
 
-            text-align:center;
-
             font-size:18px;
+
+            line-height:35px;
         }
 
         .error{
@@ -164,6 +164,11 @@
             text-align:center;
 
             color:#555;
+        }
+
+        hr{
+
+            margin:15px 0;
         }
 
     </style>
@@ -222,67 +227,77 @@
             {% endif %}
 
 
-            <!-- PREDICTION -->
+            <!-- FULL RESULT -->
 
             {% if prediction %}
 
                 <div class="result">
 
                     <h3>
-
                         🌾 Predicted Crop Price:
-                        {{ prediction }}
-
+                        ₹{{ prediction }}
                     </h3>
-
-                </div>
-
-            {% endif %}
-
-
-            <!-- SUGGESTED CROP -->
-
-            {% if suggested_crop %}
-
-                <div class="result">
 
                     <h3>
-
                         ✅ Suggested Crop:
                         {{ suggested_crop }}
-
                     </h3>
 
-                </div>
+                    <hr>
 
-            {% endif %}
+                    <h3>
+                        🧪 Nitrogen (N):
+                        {{ N }}
+                    </h3>
 
+                    <h3>
+                        🧪 Phosphorus (P):
+                        {{ P }}
+                    </h3>
 
-            <!-- WEATHER DETAILS -->
+                    <h3>
+                        🧪 Potassium (K):
+                        {{ K }}
+                    </h3>
 
-            {% if rainfall %}
+                    <hr>
 
-                <div class="result">
-
-                    <p>
+                    <h3>
                         🌧️ Rainfall:
                         {{ rainfall }}
-                    </p>
+                    </h3>
 
-                    <p>
+                    <h3>
                         🌡️ Temperature:
                         {{ temperature }}
-                    </p>
+                    </h3>
 
-                    <p>
-                        💧 Humidity:
+                    <h3>
+                        💧 Humidity / Soil Moisture:
                         {{ humidity }}
-                    </p>
+                    </h3>
 
-                    <p>
-                        🧪 Soil PH:
+                    <h3>
+                        🌱 Soil PH:
                         {{ ph }}
-                    </p>
+                    </h3>
+
+                    <hr>
+
+                    <h3>
+                        📍 State:
+                        {{ request.form['state'] }}
+                    </h3>
+
+                    <h3>
+                        🌾 Current Crop:
+                        {{ request.form['current_crop'] }}
+                    </h3>
+
+                    <h3>
+                        🚜 Land Area:
+                        {{ request.form['land_area'] }} acres
+                    </h3>
 
                 </div>
 

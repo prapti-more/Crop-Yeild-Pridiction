@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Crop Yield Prediction 🌾</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family: Arial, sans-serif;
+
+            background:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6')
+            no-repeat center center fixed;
+
+            background-size:cover;
+
+            min-height:100vh;
+        }
+
+        .overlay{
+
+            background:rgba(0,0,0,0.6);
+
+            min-height:100vh;
+
+            padding:40px;
+        }
+
+        .container{
+
+            width:550px;
+
+            max-width:95%;
+
+            margin:auto;
+
+            background:white;
+
+            border-radius:15px;
+
+            padding:35px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.5);
+        }
+
+        h2{
+
+            text-align:center;
+
+            margin-bottom:25px;
+
+            color:#2e7d32;
+        }
+
+        form input{
+
+            width:100%;
+
+            padding:12px;
+
+            margin-bottom:15px;
+
+            border:2px solid #4CAF50;
+
+            border-radius:8px;
+
+            font-size:16px;
+        }
+
+        input[type="submit"]{
+
+            background:#4CAF50;
+
+            color:white;
+
+            border:none;
+
+            cursor:pointer;
+
+            font-size:18px;
+
+            transition:0.3s;
+        }
+
+        input[type="submit"]:hover{
+
+            background:#2e7d32;
+        }
+
+        .result{
+
+            margin-top:20px;
+
+            padding:15px;
+
+            border-radius:10px;
+
+            background:#e8f5e9;
+
+            color:#1b5e20;
+
+            text-align:center;
+
+            font-size:18px;
+        }
+
+        .error{
+
+            background:#ffebee;
+
+            color:red;
+        }
+
+        .btn-group{
+
+            margin-top:30px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:12px;
+        }
+
+        .button{
+
+            text-decoration:none;
+
+            background:#388e3c;
+
+            color:white;
+
+            padding:12px;
+
+            border-radius:8px;
+
+            text-align:center;
+
+            transition:0.3s;
+        }
+
+        .button:hover{
+
+            background:#1b5e20;
+        }
+
+        footer{
+
+            margin-top:25px;
+
+            text-align:center;
+
+            color:#555;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <div class="container">
+
+            <h2>🌾 Crop Yield Prediction</h2>
+
+            <form action="{{ url_for('predict') }}" method="POST">
+
+                <input 
+                    type="text"
+                    name="state"
+                    placeholder="Enter State"
+                    required
+                >
+
+                <input 
+                    type="text"
+                    name="current_crop"
+                    placeholder="Enter Current Crop"
+                    required
+                >
+
+                <input 
+                    type="text"
+                    name="land_area"
+                    placeholder="Land Area (Acres)"
+                    required
+                >
+
+                <input 
+                    type="submit"
+                    value="Predict Yield"
+                >
+
+            </form>
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div class="result error">
+
+                    {{ error }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- PREDICTION -->
+
+            {% if prediction %}
+
+                <div class="result">
+
+                    <h3>
+
+                        🌾 Predicted Crop Price:
+                        {{ prediction }}
+
+                    </h3>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- SUGGESTED CROP -->
+
+            {% if suggested_crop %}
+
+                <div class="result">
+
+                    <h3>
+
+                        ✅ Suggested Crop:
+                        {{ suggested_crop }}
+
+                    </h3>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- WEATHER DETAILS -->
+
+            {% if rainfall %}
+
+                <div class="result">
+
+                    <p>
+                        🌧️ Rainfall:
+                        {{ rainfall }}
+                    </p>
+
+                    <p>
+                        🌡️ Temperature:
+                        {{ temperature }}
+                    </p>
+
+                    <p>
+                        💧 Humidity:
+                        {{ humidity }}
+                    </p>
+
+                    <p>
+                        🧪 Soil PH:
+                        {{ ph }}
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- BUTTONS -->
+
+            <div class="btn-group">
+
+                <a href="{{ url_for('history') }}"
+                   class="button">
+
+                    📜 View Prediction History
+
+                </a>
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="button">
+
+                    🏠 Back to Dashboard
+
+                </a>
+
+                <a href="{{ url_for('home') }}"
+                   class="button">
+
+                    🌐 Home
+
+                </a>
+
+            </div>
+
+            <footer>
+
+                <p>
+
+                    © 2025 Crop Yield Prediction System
+
+                </p>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

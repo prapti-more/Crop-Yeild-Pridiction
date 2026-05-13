@@ -2,4 +2,4 @@ Flask
 pandas
 scikit-learn
 requests
-gunicorngit
+gunicorn
